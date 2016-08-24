@@ -1,3 +1,4 @@
 module.exports = {
-
+  SEARCH_RESULTS: 'SEARCH_RESULTS',
+  RECEIVE_RESULTS: 'RECEIVE_RESULTS'
 }

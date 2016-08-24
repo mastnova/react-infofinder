@@ -1,38 +1,44 @@
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 var AppStore = require('../stores/AppStore');
+var SearchForm = require('./SearchForm.js');
+var ResultsList = require('./ResultsList.js');
 
 function getAppState(){
-	return {
-
-	}
+  return {
+    results: AppStore.getResults(),
+    searchingText: AppStore.getSearchingText()
+  }
 }
 
 var App = React.createClass({
-	getInitialState: function(){
-		return getAppState();
-	},
+  getInitialState: function(){
+    return getAppState();
+  },
 
-	componentDidMount: function(){
-		AppStore.addChangeListener(this._onChange);
-	},
+  componentDidMount: function(){
+    AppStore.addChangeListener(this._onChange);
+  },
 
-	componentUnmount: function(){
-		AppStore.removeChangeListener(this._onChange);
-	},
+  componentUnmount: function(){
+    AppStore.removeChangeListener(this._onChange);
+  },
 
-	render: function(){
-		return(
-			<div>
-				MYAPP
-			</div>
-		);
-	},
+  render: function(){
+    return(
+      <div>
+        <SearchForm />
+        <ResultsList
+          text={this.state.searchingText}
+          results={this.state.results}
+        />
+      </div>
+    );
+  },
 
-	// Update view state when change is received
-	_onChange: function(){
-		this.setState(getAppState());
-	}
+  _onChange: function(){
+    this.setState(getAppState());
+  }
 });
 
 module.exports = App;
